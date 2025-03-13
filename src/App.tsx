@@ -28,6 +28,22 @@ function App() {
     setTodos([newTodo, ...todos]);
   }
 
+  const toggleCheckbox = (id: number) => {
+    setTodos(todos.map((todo) => {
+      if(todo.id === id){
+        return {
+          ...todo,
+          checked: !todo.checked
+        }
+      }
+      return todo;
+    }))
+  }
+
+  const deleteTodoList = (id: number) => {
+    setTodos(todos.filter((todo) => todo.id !== id))
+  }
+
 
   return (
     <div className="app">
@@ -35,7 +51,7 @@ function App() {
       <Editor
         pushTodoList={addTodoItem}
         />
-      <List todos={todos}/>
+      <List todos={todos} toggleCheckbox={toggleCheckbox} deleteTodoList={deleteTodoList}/>
     </div>
   )
 }

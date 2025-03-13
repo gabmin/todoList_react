@@ -3,7 +3,12 @@ import './List.css'
 import TodoItem from './TodoItem';
 import { TodoList } from './TodoItemType';
 
-const List = ({todos} : {todos: TodoList[]}) => {
+const List = (
+  {todos, toggleCheckbox, deleteTodoList} :
+  {todos: TodoList[],
+    toggleCheckbox: (index: number) => void
+    deleteTodoList: (index: number) => void
+  }) => {
 
   const [searchText, setSearchText] = useState('')
   const getFilteredList = () => {
@@ -31,7 +36,7 @@ const List = ({todos} : {todos: TodoList[]}) => {
       <div className='todos_wrapper'>
         { getFilteredList().map((todo) => {
             return (
-              <TodoItem key={todo.id} todo={todo}/>
+              <TodoItem key={todo.id} todo={todo} toggleCheckbox={toggleCheckbox} deleteTodoList={deleteTodoList}/>
             )
         })}
       </div>

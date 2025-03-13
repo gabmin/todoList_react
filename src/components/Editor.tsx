@@ -20,7 +20,7 @@ const Editor = ({pushTodoList}: {pushTodoList: (contents: string) => void}) => {
   }
 
   const enterList = (e: KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === 'Enter') {
+    if(e.key === 'Enter' && !e.nativeEvent.isComposing) {
       confirmList();
     }
   }
