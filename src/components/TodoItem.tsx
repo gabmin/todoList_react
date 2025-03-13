@@ -1,15 +1,20 @@
 import './TodoItem.css'
+import { TodoList } from './TodoItemType';
 
-const TodoItem = () => {
+const TodoItem = ({todo}: {todo: TodoList}) => {
 
   return (
     <div className='todo-item'>
-      <input type='checkbox'/>
+      <input
+        readOnly
+        type='checkbox'
+        checked={todo.checked}
+      />
       <div className='content'>
-        item
+        {todo.contents}
       </div>
       <div className='date'>
-        date
+        {new Date(todo.time).toLocaleDateString()}
       </div>
       <button>
         삭제
