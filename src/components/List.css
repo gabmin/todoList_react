@@ -1,3 +1,9 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
 .list > input {
   width: 100%;
   border: none;
@@ -8,4 +14,10 @@
 .list > input:focus {
   outline: none;
   border-bottom: 1px solid rgb(37, 147, 255);
+}
+
+.list > .todos_wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
