@@ -2,19 +2,34 @@ import './App.css'
 import Header from './components/Header'
 import Editor from './components/Editor'
 import List from './components/List'
-import { useRef, useState } from 'react';
+import { useReducer, useRef } from 'react';
+import { TodoList, reducerType } from './components/TodoItemType';
 
+const reducer = (state: TodoList[], action: reducerType): TodoList[] => {
+
+  switch (action.type) {
+    case "CREATE":
+      return typeof action.data !== 'number' ? [action.data, ...state] : state
+    case "CHECKBOX":
+      return state.map((todo) => {
+        if(todo.id === action.data){
+          return {
+            ...todo,
+            checked: !todo.checked
+          }
+        }
+        return todo;
+      })
+    case "DELETE":
+      return state.filter((todo) => todo.id !== action.data)
+    default:
+      return state
+  }
+}
 
 function App() {
-  type TodoList = {
-    id: number,
-    checked: boolean
-    contents: string,
-    time: number
-  }
 
-
-  const [todos, setTodos] = useState<TodoList[]>([]);
+  const [todos, dispatch] = useReducer(reducer, [])
   const ifRef = useRef(0);
 
   const addTodoItem = (contents: string) => {
@@ -25,23 +40,24 @@ function App() {
       time: new Date().getTime(),
     }
 
-    setTodos([newTodo, ...todos]);
+    dispatch({
+      type: 'CREATE',
+      data: newTodo,
+    })
   }
 
   const toggleCheckbox = (id: number) => {
-    setTodos(todos.map((todo) => {
-      if(todo.id === id){
-        return {
-          ...todo,
-          checked: !todo.checked
-        }
-      }
-      return todo;
-    }))
+    dispatch({
+      type: 'CHECKBOX',
+      data: id
+    })
   }
 
   const deleteTodoList = (id: number) => {
-    setTodos(todos.filter((todo) => todo.id !== id))
+    dispatch({
+      type: "DELETE",
+      data: id
+    })
   }
 
 
