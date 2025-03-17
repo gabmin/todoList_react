@@ -1,16 +1,23 @@
-import './Header.css';
+import { css } from '@emotion/react';
 
-const Header =() => {
+const Header = () => {
   return (
-    <div className="header-container">
-      <h3 className="header-title">
-      오늘은 📆
-      </h3>
-      <h1 className="header-date">
-        {new Date().toDateString() }
+    <div
+      css={css`
+        display: flex;
+        flex-direction: column;
+      `}
+    >
+      <h3>오늘은 📆</h3>
+      <h1
+        css={css`
+          color: rgb(37, 147, 255);
+        `}
+      >
+        {new Date().toDateString()}
       </h1>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;
